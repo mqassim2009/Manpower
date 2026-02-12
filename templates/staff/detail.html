@@ -122,14 +122,6 @@
                         <th>Visa Expiry:</th>
                         <td>
                             {{ staff.visa_expiry.strftime('%Y-%m-%d') if staff.visa_expiry else '-' }}
-                            {% if staff.visa_expiry %}
-                                {% set days_until_expiry = (staff.visa_expiry - now.date()).days if now else 0 %}
-                                {% if days_until_expiry < 0 %}
-                                    <span class="badge bg-danger">Expired</span>
-                                {% elif days_until_expiry < 30 %}
-                                    <span class="badge bg-warning text-dark">Expiring Soon</span>
-                                {% endif %}
-                            {% endif %}
                         </td>
                     </tr>
                 </table>
