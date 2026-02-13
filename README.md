@@ -1,4 +1,4 @@
-"# Manpower
+# Manpower
 
 A modern, responsive manpower management website built with Jekyll.
 
@@ -27,4 +27,4 @@ jekyll serve
 
 ## Deployment
 
-This site is automatically deployed to GitHub Pages via GitHub Actions workflow when pushed to the main branch." 
+This site is automatically deployed to GitHub Pages via GitHub Actions workflow when pushed to the main branch.

@@ -25,11 +25,20 @@ if (contactForm) {
             message: document.getElementById('message').value
         };
         
-        // Show success message (in a real app, this would send to a server)
-        alert('Thank you for your message! We will get back to you soon.');
+        // Create and show success message
+        const submitBtn = contactForm.querySelector('.btn-submit');
+        const originalText = submitBtn.textContent;
+        submitBtn.textContent = '✓ Message Sent!';
+        submitBtn.style.backgroundColor = '#10b981';
         
         // Reset form
         contactForm.reset();
+        
+        // Restore button after 3 seconds
+        setTimeout(() => {
+            submitBtn.textContent = originalText;
+            submitBtn.style.backgroundColor = '';
+        }, 3000);
     });
 }
 
