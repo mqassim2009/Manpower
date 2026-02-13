@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block title %}Offices - Qatar Manpower{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-md-6">
+        <h1><i class="bi bi-building"></i> Offices</h1>
+    </div>
+    <div class="col-md-6 text-end">
+        <a href="{{ url_for('office_new') }}" class="btn btn-primary">
+            <i class="bi bi-plus-circle"></i> Add New Office
+        </a>
+    </div>
+</div>
+
+{% if offices %}
+<div class="card">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>License Number</th>
+                        <th>Location</th>
+                        <th>Contact Person</th>
+                        <th>Phone</th>
+                        <th>Status</th>
+                        <th>Staff Count</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for office in offices %}
+                    <tr>
+                        <td><strong>{{ office.name }}</strong></td>
+                        <td>{{ office.license_number }}</td>
+                        <td>{{ office.location or '-' }}</td>
+                        <td>{{ office.contact_person or '-' }}</td>
+                        <td>{{ office.phone or '-' }}</td>
+                        <td>
+                            <span class="badge bg-{{ 'success' if office.status == 'Active' else 'secondary' }}">
+                                {{ office.status }}
+                            </span>
+                        </td>
+                        <td>{{ office.staff|length }}</td>
+                        <td>
+                            <a href="{{ url_for('office_detail', id=office.id) }}" class="btn btn-sm btn-info" title="View">
+                                <i class="bi bi-eye"></i>
+                            </a>
+                            <a href="{{ url_for('office_edit', id=office.id) }}" class="btn btn-sm btn-warning" title="Edit">
+                                <i class="bi bi-pencil"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% else %}
+<div class="alert alert-info">
+    <i class="bi bi-info-circle"></i> No offices registered yet. 
+    <a href="{{ url_for('office_new') }}" class="alert-link">Add the first office</a>.
+</div>
+{% endif %}
+{% endblock %}

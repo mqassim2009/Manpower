@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+{% block title %}{{ 'Edit' if office else 'New' }} Office - Qatar Manpower{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <h1>
+            <i class="bi bi-building"></i> 
+            {% if office %}Edit Office: {{ office.name }}{% else %}Add New Office{% endif %}
+        </h1>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <form method="POST">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Office Name <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="name" name="name" 
+                               value="{{ office.name if office else '' }}" required>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="license_number" class="form-label">License Number <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="license_number" name="license_number" 
+                               value="{{ office.license_number if office else '' }}" required>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="location" class="form-label">Location</label>
+                        <input type="text" class="form-control" id="location" name="location" 
+                               value="{{ office.location if office else '' }}"
+                               placeholder="e.g., Doha, Al Sadd Street">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="contact_person" class="form-label">Contact Person</label>
+                        <input type="text" class="form-control" id="contact_person" name="contact_person" 
+                               value="{{ office.contact_person if office else '' }}">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="phone" class="form-label">Phone</label>
+                        <input type="tel" class="form-control" id="phone" name="phone" 
+                               value="{{ office.phone if office else '' }}"
+                               placeholder="+974 XXXX XXXX">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" 
+                               value="{{ office.email if office else '' }}">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="established_date" class="form-label">Established Date</label>
+                        <input type="date" class="form-control" id="established_date" name="established_date" 
+                               value="{{ office.established_date.strftime('%Y-%m-%d') if office and office.established_date else '' }}">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="status" class="form-label">Status</label>
+                        <select class="form-select" id="status" name="status">
+                            <option value="Active" {% if office and office.status == 'Active' %}selected{% endif %}>Active</option>
+                            <option value="Inactive" {% if office and office.status == 'Inactive' %}selected{% endif %}>Inactive</option>
+                            <option value="Suspended" {% if office and office.status == 'Suspended' %}selected{% endif %}>Suspended</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea class="form-control" id="description" name="description" rows="4">{{ office.description if office else '' }}</textarea>
+            </div>
+            
+            <div class="d-flex justify-content-between">
+                <a href="{{ url_for('office_detail', id=office.id) if office else url_for('offices_list') }}" class="btn btn-secondary">
+                    <i class="bi bi-x-circle"></i> Cancel
+                </a>
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-check-circle"></i> {% if office %}Update{% else %}Create{% endif %} Office
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - Qatar Manpower{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h1 class="mb-4">
+            <i class="bi bi-speedometer2"></i> Dashboard
+        </h1>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="card text-white bg-primary mb-3">
+            <div class="card-body">
+                <h5 class="card-title"><i class="bi bi-building"></i> Total Offices</h5>
+                <h2 class="card-text">{{ total_offices }}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-success mb-3">
+            <div class="card-body">
+                <h5 class="card-title"><i class="bi bi-building-check"></i> Active Offices</h5>
+                <h2 class="card-text">{{ active_offices }}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-info mb-3">
+            <div class="card-body">
+                <h5 class="card-title"><i class="bi bi-people"></i> Total Staff</h5>
+                <h2 class="card-text">{{ total_staff }}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-warning mb-3">
+            <div class="card-body">
+                <h5 class="card-title"><i class="bi bi-person-check"></i> Active Staff</h5>
+                <h2 class="card-text">{{ active_staff }}</h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0"><i class="bi bi-building"></i> Recent Offices</h5>
+            </div>
+            <div class="card-body">
+                {% if recent_offices %}
+                <div class="list-group">
+                    {% for office in recent_offices %}
+                    <a href="{{ url_for('office_detail', id=office.id) }}" class="list-group-item list-group-item-action">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h6 class="mb-1">{{ office.name }}</h6>
+                            <small class="text-muted">{{ office.created_at.strftime('%Y-%m-%d') }}</small>
+                        </div>
+                        <small class="text-muted">{{ office.location or 'No location' }}</small>
+                    </a>
+                    {% endfor %}
+                </div>
+                <div class="mt-3">
+                    <a href="{{ url_for('offices_list') }}" class="btn btn-sm btn-outline-primary">View All Offices</a>
+                </div>
+                {% else %}
+                <p class="text-muted">No offices registered yet.</p>
+                <a href="{{ url_for('office_new') }}" class="btn btn-primary">
+                    <i class="bi bi-plus-circle"></i> Add First Office
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-info text-white">
+                <h5 class="mb-0"><i class="bi bi-people"></i> Recent Staff</h5>
+            </div>
+            <div class="card-body">
+                {% if recent_staff %}
+                <div class="list-group">
+                    {% for staff in recent_staff %}
+                    <a href="{{ url_for('staff_detail', id=staff.id) }}" class="list-group-item list-group-item-action">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h6 class="mb-1">{{ staff.full_name }}</h6>
+                            <small class="text-muted">{{ staff.created_at.strftime('%Y-%m-%d') }}</small>
+                        </div>
+                        <small class="text-muted">{{ staff.position or 'No position' }} - {{ staff.office.name }}</small>
+                    </a>
+                    {% endfor %}
+                </div>
+                <div class="mt-3">
+                    <a href="{{ url_for('staff_list') }}" class="btn btn-sm btn-outline-info">View All Staff</a>
+                </div>
+                {% else %}
+                <p class="text-muted">No staff registered yet.</p>
+                {% if total_offices > 0 %}
+                <a href="{{ url_for('staff_new') }}" class="btn btn-info">
+                    <i class="bi bi-plus-circle"></i> Add First Staff Member
+                </a>
+                {% else %}
+                <p class="text-muted"><small>Add an office first before adding staff members.</small></p>
+                {% endif %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card bg-light">
+            <div class="card-body">
+                <h5><i class="bi bi-info-circle"></i> About Qatar Manpower System</h5>
+                <p>This comprehensive manpower management system helps you efficiently manage office profiles and their staff members in Qatar. Features include:</p>
+                <ul>
+                    <li>Complete office profile management with license tracking</li>
+                    <li>Detailed staff profiles with passport and visa information</li>
+                    <li>Contract and salary management</li>
+                    <li>Status tracking for offices and staff</li>
+                    <li>Easy-to-use interface for all operations</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
