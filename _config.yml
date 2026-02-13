@@ -1,0 +1,27 @@
+# Site settings
+title: Manpower
+description: Manpower Management System
+url: ""
+baseurl: ""
+
+# Build settings
+markdown: kramdown
+theme: minima
+
+# Navigation menu items
+navigation:
+  - title: Home
+    url: /
+  - title: About
+    url: /about
+  - title: Services
+    url: /services
+  - title: Contact
+    url: /contact
+
+# Exclude from build
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
