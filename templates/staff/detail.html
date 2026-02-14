@@ -3,57 +3,55 @@
 {% block title %}{{ staff.full_name }} - Staff Details{% endblock %}
 
 {% block content %}
-<div class="row mb-4">
-    <div class="col-md-8">
-        <h1><i class="bi bi-person"></i> {{ staff.full_name }}</h1>
-    </div>
-    <div class="col-md-4 text-end">
-        <a href="{{ url_for('staff_edit', id=staff.id) }}" class="btn btn-warning">
-            <i class="bi bi-pencil"></i> Edit
+<div class="page-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+    <h1><i class="bi bi-person me-2"></i>{{ staff.full_name }}</h1>
+    <div class="d-flex gap-2">
+        <a href="{{ url_for('staff_edit', id=staff.id) }}" class="btn btn-outline-secondary">
+            <i class="bi bi-pencil me-1"></i> Edit
         </a>
-        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
-            <i class="bi bi-trash"></i> Delete
+        <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
+            <i class="bi bi-trash me-1"></i> Delete
         </button>
-        <a href="{{ url_for('staff_list') }}" class="btn btn-secondary">
-            <i class="bi bi-arrow-left"></i> Back
+        <a href="{{ url_for('staff_list') }}" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left me-1"></i> Back
         </a>
     </div>
 </div>
 
-<div class="row">
-    <div class="col-md-6">
-        <div class="card mb-4">
-            <div class="card-header bg-primary text-white">
-                <h5 class="mb-0"><i class="bi bi-person-badge"></i> Personal Information</h5>
+<div class="row g-4">
+    <div class="col-lg-6">
+        <div class="card info-section mb-4">
+            <div class="card-header bg-white">
+                <h5 class="mb-0"><i class="bi bi-person-badge me-1"></i> Personal Information</h5>
             </div>
-            <div class="card-body">
-                <table class="table table-borderless">
+            <div class="card-body p-0">
+                <table class="table table-borderless mb-0">
                     <tr>
-                        <th>Full Name:</th>
+                        <th>Full Name</th>
                         <td>{{ staff.full_name }}</td>
                     </tr>
                     <tr>
-                        <th>Nationality:</th>
-                        <td>{{ staff.nationality or '-' }}</td>
+                        <th>Nationality</th>
+                        <td>{{ staff.nationality or '—' }}</td>
                     </tr>
                     <tr>
-                        <th>Date of Birth:</th>
-                        <td>{{ staff.date_of_birth.strftime('%Y-%m-%d') if staff.date_of_birth else '-' }}</td>
+                        <th>Date of Birth</th>
+                        <td>{{ staff.date_of_birth.strftime('%b %d, %Y') if staff.date_of_birth else '—' }}</td>
                     </tr>
                     <tr>
-                        <th>Gender:</th>
-                        <td>{{ staff.gender or '-' }}</td>
+                        <th>Gender</th>
+                        <td>{{ staff.gender or '—' }}</td>
                     </tr>
                     <tr>
-                        <th>Phone:</th>
-                        <td>{{ staff.phone or '-' }}</td>
+                        <th>Phone</th>
+                        <td>{{ staff.phone or '—' }}</td>
                     </tr>
                     <tr>
-                        <th>Email:</th>
-                        <td>{{ staff.email or '-' }}</td>
+                        <th>Email</th>
+                        <td>{{ staff.email or '—' }}</td>
                     </tr>
                     <tr>
-                        <th>Status:</th>
+                        <th>Status</th>
                         <td>
                             <span class="badge bg-{{ 'success' if staff.status == 'Active' else 'secondary' }}">
                                 {{ staff.status }}
@@ -64,16 +62,16 @@
             </div>
         </div>
     </div>
-    
-    <div class="col-md-6">
-        <div class="card mb-4">
-            <div class="card-header bg-info text-white">
-                <h5 class="mb-0"><i class="bi bi-building"></i> Employment Details</h5>
+
+    <div class="col-lg-6">
+        <div class="card info-section mb-4">
+            <div class="card-header bg-white">
+                <h5 class="mb-0"><i class="bi bi-building me-1"></i> Employment Details</h5>
             </div>
-            <div class="card-body">
-                <table class="table table-borderless">
+            <div class="card-body p-0">
+                <table class="table table-borderless mb-0">
                     <tr>
-                        <th>Office:</th>
+                        <th>Office</th>
                         <td>
                             <a href="{{ url_for('office_detail', id=staff.office.id) }}">
                                 {{ staff.office.name }}
@@ -81,20 +79,20 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>Position:</th>
-                        <td>{{ staff.position or '-' }}</td>
+                        <th>Position</th>
+                        <td>{{ staff.position or '—' }}</td>
                     </tr>
                     <tr>
-                        <th>Salary:</th>
-                        <td>{{ '%.2f QAR' % staff.salary if staff.salary else '-' }}</td>
+                        <th>Salary</th>
+                        <td>{{ '%.2f QAR' % staff.salary if staff.salary else '—' }}</td>
                     </tr>
                     <tr>
-                        <th>Contract Start:</th>
-                        <td>{{ staff.contract_start.strftime('%Y-%m-%d') if staff.contract_start else '-' }}</td>
+                        <th>Contract Start</th>
+                        <td>{{ staff.contract_start.strftime('%b %d, %Y') if staff.contract_start else '—' }}</td>
                     </tr>
                     <tr>
-                        <th>Contract End:</th>
-                        <td>{{ staff.contract_end.strftime('%Y-%m-%d') if staff.contract_end else '-' }}</td>
+                        <th>Contract End</th>
+                        <td>{{ staff.contract_end.strftime('%b %d, %Y') if staff.contract_end else '—' }}</td>
                     </tr>
                 </table>
             </div>
@@ -102,53 +100,51 @@
     </div>
 </div>
 
-<div class="row">
-    <div class="col-md-6">
-        <div class="card mb-4">
-            <div class="card-header bg-warning text-dark">
-                <h5 class="mb-0"><i class="bi bi-credit-card"></i> Passport & Visa Information</h5>
+<div class="row g-4">
+    <div class="col-lg-6">
+        <div class="card info-section mb-4">
+            <div class="card-header bg-white">
+                <h5 class="mb-0"><i class="bi bi-credit-card me-1"></i> Passport &amp; Visa Information</h5>
             </div>
-            <div class="card-body">
-                <table class="table table-borderless">
+            <div class="card-body p-0">
+                <table class="table table-borderless mb-0">
                     <tr>
-                        <th>Passport Number:</th>
-                        <td>{{ staff.passport_number }}</td>
+                        <th>Passport Number</th>
+                        <td><code>{{ staff.passport_number }}</code></td>
                     </tr>
                     <tr>
-                        <th>Visa Number:</th>
-                        <td>{{ staff.visa_number or '-' }}</td>
+                        <th>Visa Number</th>
+                        <td>{{ staff.visa_number or '—' }}</td>
                     </tr>
                     <tr>
-                        <th>Visa Expiry:</th>
-                        <td>
-                            {{ staff.visa_expiry.strftime('%Y-%m-%d') if staff.visa_expiry else '-' }}
-                        </td>
+                        <th>Visa Expiry</th>
+                        <td>{{ staff.visa_expiry.strftime('%b %d, %Y') if staff.visa_expiry else '—' }}</td>
                     </tr>
                 </table>
             </div>
         </div>
     </div>
-    
+
     {% if staff.notes %}
-    <div class="col-md-6">
+    <div class="col-lg-6">
         <div class="card mb-4">
-            <div class="card-header">
-                <h5 class="mb-0"><i class="bi bi-card-text"></i> Notes</h5>
+            <div class="card-header bg-white">
+                <h5 class="mb-0"><i class="bi bi-card-text me-1"></i> Notes</h5>
             </div>
             <div class="card-body">
-                <p>{{ staff.notes }}</p>
+                <p class="mb-0">{{ staff.notes }}</p>
             </div>
         </div>
     </div>
     {% endif %}
 </div>
 
-<div class="card mt-4">
-    <div class="card-body text-muted">
+<div class="card mt-2 border-0 bg-transparent">
+    <div class="card-body text-muted px-0">
         <small>
-            <i class="bi bi-clock"></i> Created: {{ staff.created_at.strftime('%Y-%m-%d %H:%M') }}
+            <i class="bi bi-clock me-1"></i> Created: {{ staff.created_at.strftime('%b %d, %Y at %H:%M') }}
             {% if staff.updated_at != staff.created_at %}
-            | Last updated: {{ staff.updated_at.strftime('%Y-%m-%d %H:%M') }}
+            &middot; Last updated: {{ staff.updated_at.strftime('%b %d, %Y at %H:%M') }}
             {% endif %}
         </small>
     </div>

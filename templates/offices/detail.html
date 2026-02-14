@@ -3,57 +3,55 @@
 {% block title %}{{ office.name }} - Office Details{% endblock %}
 
 {% block content %}
-<div class="row mb-4">
-    <div class="col-md-8">
-        <h1><i class="bi bi-building"></i> {{ office.name }}</h1>
-    </div>
-    <div class="col-md-4 text-end">
-        <a href="{{ url_for('office_edit', id=office.id) }}" class="btn btn-warning">
-            <i class="bi bi-pencil"></i> Edit
+<div class="page-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+    <h1><i class="bi bi-building me-2"></i>{{ office.name }}</h1>
+    <div class="d-flex gap-2">
+        <a href="{{ url_for('office_edit', id=office.id) }}" class="btn btn-outline-secondary">
+            <i class="bi bi-pencil me-1"></i> Edit
         </a>
-        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
-            <i class="bi bi-trash"></i> Delete
+        <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
+            <i class="bi bi-trash me-1"></i> Delete
         </button>
-        <a href="{{ url_for('offices_list') }}" class="btn btn-secondary">
-            <i class="bi bi-arrow-left"></i> Back
+        <a href="{{ url_for('offices_list') }}" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left me-1"></i> Back
         </a>
     </div>
 </div>
 
-<div class="row">
-    <div class="col-md-6">
-        <div class="card mb-4">
-            <div class="card-header bg-primary text-white">
-                <h5 class="mb-0"><i class="bi bi-info-circle"></i> Office Information</h5>
+<div class="row g-4">
+    <div class="col-lg-6">
+        <div class="card info-section mb-4">
+            <div class="card-header bg-white">
+                <h5 class="mb-0"><i class="bi bi-info-circle me-1"></i> Office Information</h5>
             </div>
-            <div class="card-body">
-                <table class="table table-borderless">
+            <div class="card-body p-0">
+                <table class="table table-borderless mb-0">
                     <tr>
-                        <th>License Number:</th>
-                        <td>{{ office.license_number }}</td>
+                        <th>License Number</th>
+                        <td><code>{{ office.license_number }}</code></td>
                     </tr>
                     <tr>
-                        <th>Location:</th>
-                        <td>{{ office.location or '-' }}</td>
+                        <th>Location</th>
+                        <td>{{ office.location or '—' }}</td>
                     </tr>
                     <tr>
-                        <th>Contact Person:</th>
-                        <td>{{ office.contact_person or '-' }}</td>
+                        <th>Contact Person</th>
+                        <td>{{ office.contact_person or '—' }}</td>
                     </tr>
                     <tr>
-                        <th>Phone:</th>
-                        <td>{{ office.phone or '-' }}</td>
+                        <th>Phone</th>
+                        <td>{{ office.phone or '—' }}</td>
                     </tr>
                     <tr>
-                        <th>Email:</th>
-                        <td>{{ office.email or '-' }}</td>
+                        <th>Email</th>
+                        <td>{{ office.email or '—' }}</td>
                     </tr>
                     <tr>
-                        <th>Established Date:</th>
-                        <td>{{ office.established_date.strftime('%Y-%m-%d') if office.established_date else '-' }}</td>
+                        <th>Established Date</th>
+                        <td>{{ office.established_date.strftime('%b %d, %Y') if office.established_date else '—' }}</td>
                     </tr>
                     <tr>
-                        <th>Status:</th>
+                        <th>Status</th>
                         <td>
                             <span class="badge bg-{{ 'success' if office.status == 'Active' else 'secondary' }}">
                                 {{ office.status }}
@@ -63,57 +61,61 @@
                 </table>
             </div>
         </div>
-        
+
         {% if office.description %}
         <div class="card mb-4">
-            <div class="card-header">
-                <h5 class="mb-0"><i class="bi bi-card-text"></i> Description</h5>
+            <div class="card-header bg-white">
+                <h5 class="mb-0"><i class="bi bi-card-text me-1"></i> Description</h5>
             </div>
             <div class="card-body">
-                <p>{{ office.description }}</p>
+                <p class="mb-0">{{ office.description }}</p>
             </div>
         </div>
         {% endif %}
     </div>
-    
-    <div class="col-md-6">
-        <div class="card">
-            <div class="card-header bg-info text-white d-flex justify-content-between align-items-center">
-                <h5 class="mb-0"><i class="bi bi-people"></i> Staff Members ({{ office.staff|length }})</h5>
-                <a href="{{ url_for('staff_new') }}" class="btn btn-sm btn-light">
-                    <i class="bi bi-plus"></i> Add Staff
+
+    <div class="col-lg-6">
+        <div class="card h-100">
+            <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                <h5 class="mb-0"><i class="bi bi-people me-1"></i> Staff Members ({{ office.staff|length }})</h5>
+                <a href="{{ url_for('staff_new') }}" class="btn btn-sm btn-primary">
+                    <i class="bi bi-plus me-1"></i> Add Staff
                 </a>
             </div>
-            <div class="card-body">
+            <div class="card-body p-0">
                 {% if office.staff %}
-                <div class="list-group">
+                <div class="list-group list-group-flush">
                     {% for staff in office.staff %}
                     <a href="{{ url_for('staff_detail', id=staff.id) }}" class="list-group-item list-group-item-action">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h6 class="mb-1">{{ staff.full_name }}</h6>
+                        <div class="d-flex w-100 justify-content-between align-items-center">
+                            <div>
+                                <h6 class="mb-1">{{ staff.full_name }}</h6>
+                                <small class="text-muted">{{ staff.position or 'No position' }} &middot; {{ staff.nationality or 'Unknown nationality' }}</small>
+                            </div>
                             <span class="badge bg-{{ 'success' if staff.status == 'Active' else 'secondary' }}">
                                 {{ staff.status }}
                             </span>
                         </div>
-                        <p class="mb-1">{{ staff.position or 'No position' }}</p>
-                        <small class="text-muted">{{ staff.nationality or 'Unknown nationality' }}</small>
                     </a>
                     {% endfor %}
                 </div>
                 {% else %}
-                <p class="text-muted">No staff members assigned to this office yet.</p>
+                <div class="text-center py-5">
+                    <i class="bi bi-people text-muted" style="font-size: 2rem;"></i>
+                    <p class="text-muted mt-2 mb-0">No staff members assigned to this office yet.</p>
+                </div>
                 {% endif %}
             </div>
         </div>
     </div>
 </div>
 
-<div class="card mt-4">
-    <div class="card-body text-muted">
+<div class="card mt-4 border-0 bg-transparent">
+    <div class="card-body text-muted px-0">
         <small>
-            <i class="bi bi-clock"></i> Created: {{ office.created_at.strftime('%Y-%m-%d %H:%M') }}
+            <i class="bi bi-clock me-1"></i> Created: {{ office.created_at.strftime('%b %d, %Y at %H:%M') }}
             {% if office.updated_at != office.created_at %}
-            | Last updated: {{ office.updated_at.strftime('%Y-%m-%d %H:%M') }}
+            &middot; Last updated: {{ office.updated_at.strftime('%b %d, %Y at %H:%M') }}
             {% endif %}
         </small>
     </div>
