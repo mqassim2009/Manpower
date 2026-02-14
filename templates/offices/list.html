@@ -31,7 +31,7 @@
                     {% for office in offices %}
                     <tr>
                         <td><strong>{{ office.name }}</strong></td>
-                        <td><code>{{ office.license_number }}</code></td>
+                        <td>{{ office.license_number }}</td>
                         <td>{{ office.location or '—' }}</td>
                         <td>{{ office.contact_person or '—' }}</td>
                         <td>{{ office.phone or '—' }}</td>
