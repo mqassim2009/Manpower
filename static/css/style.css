@@ -1,139 +1,378 @@
-/* Custom styles for Qatar Manpower System */
+/* Custom styles for Qatar Manpower System — Modern & Professional */
+
+:root {
+    --primary: #1a3a5c;
+    --primary-light: #2a5a8c;
+    --accent: #0ea5e9;
+    --accent-light: #38bdf8;
+    --success: #10b981;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    --gray-50: #f8fafc;
+    --gray-100: #f1f5f9;
+    --gray-200: #e2e8f0;
+    --gray-300: #cbd5e1;
+    --gray-500: #64748b;
+    --gray-700: #334155;
+    --gray-900: #0f172a;
+    --radius: 0.75rem;
+    --shadow-sm: 0 1px 2px rgba(0,0,0,.05);
+    --shadow: 0 1px 3px rgba(0,0,0,.1), 0 1px 2px rgba(0,0,0,.06);
+    --shadow-md: 0 4px 6px -1px rgba(0,0,0,.1), 0 2px 4px -2px rgba(0,0,0,.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0,0,0,.1), 0 4px 6px -4px rgba(0,0,0,.1);
+    --transition: 0.2s ease;
+}
 
 body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: var(--gray-50);
+    color: var(--gray-700);
 }
 
 .container {
     flex: 1;
 }
 
-/* Card enhancements */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--gray-900);
+    font-weight: 700;
+}
+
+/* ─── Navigation ─────────────────────────────────── */
+.navbar {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%) !important;
+    box-shadow: var(--shadow-md);
+    padding: 0.75rem 0;
+}
+
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.3rem;
+    letter-spacing: -0.02em;
+}
+
+.navbar .nav-link {
+    font-weight: 500;
+    padding: 0.5rem 1rem !important;
+    border-radius: var(--radius);
+    transition: background var(--transition);
+}
+
+.navbar .nav-link:hover,
+.navbar .nav-link.active {
+    background: rgba(255,255,255,.15);
+}
+
+/* ─── Cards ──────────────────────────────────────── */
 .card {
-    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-    transition: transform 0.2s;
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow var(--transition), transform var(--transition);
+    overflow: hidden;
 }
 
 .card:hover {
+    box-shadow: var(--shadow-md);
     transform: translateY(-2px);
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
 }
 
-/* Table improvements */
+.card-header {
+    border-bottom: 1px solid var(--gray-200);
+    font-weight: 600;
+}
+
+/* ─── Stat Cards (Dashboard) ─────────────────────── */
+.stat-card {
+    border: none;
+    border-radius: var(--radius);
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-card::after {
+    content: '';
+    position: absolute;
+    top: -30%;
+    right: -20%;
+    width: 120px;
+    height: 120px;
+    background: rgba(255,255,255,.1);
+    border-radius: 50%;
+}
+
+.stat-card .stat-icon {
+    font-size: 2rem;
+    opacity: 0.85;
+}
+
+.stat-card .stat-value {
+    font-size: 2.25rem;
+    font-weight: 800;
+    line-height: 1.1;
+}
+
+.stat-card .stat-label {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    opacity: 0.9;
+}
+
+.stat-card.bg-gradient-primary {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+}
+.stat-card.bg-gradient-success {
+    background: linear-gradient(135deg, #059669 0%, var(--success) 100%);
+}
+.stat-card.bg-gradient-info {
+    background: linear-gradient(135deg, #0284c7 0%, var(--accent) 100%);
+}
+.stat-card.bg-gradient-warning {
+    background: linear-gradient(135deg, #d97706 0%, var(--warning) 100%);
+}
+
+/* ─── Tables ─────────────────────────────────────── */
+.table {
+    margin-bottom: 0;
+}
+
+.table thead th {
+    background-color: var(--gray-50);
+    color: var(--gray-500);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+    border-bottom: 2px solid var(--gray-200);
+    padding: 0.75rem 1rem;
+    white-space: nowrap;
+}
+
+.table tbody td {
+    padding: 0.75rem 1rem;
+    vertical-align: middle;
+    border-bottom: 1px solid var(--gray-100);
+}
+
 .table-hover tbody tr:hover {
-    background-color: rgba(0, 123, 255, 0.05);
+    background-color: var(--gray-50);
 }
 
-/* Badge styling */
+/* ─── Badges ─────────────────────────────────────── */
 .badge {
-    padding: 0.35em 0.65em;
+    padding: 0.35em 0.75em;
     font-weight: 500;
+    font-size: 0.75rem;
+    border-radius: 9999px;
 }
 
-/* Button improvements */
+.badge.bg-success {
+    background-color: #dcfce7 !important;
+    color: #166534 !important;
+}
+
+.badge.bg-secondary {
+    background-color: var(--gray-100) !important;
+    color: var(--gray-500) !important;
+}
+
+.badge.bg-warning {
+    background-color: #fef3c7 !important;
+    color: #92400e !important;
+}
+
+.badge.bg-danger {
+    background-color: #fee2e2 !important;
+    color: #991b1b !important;
+}
+
+/* ─── Buttons ────────────────────────────────────── */
 .btn {
-    transition: all 0.2s;
+    font-weight: 500;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1.25rem;
+    transition: all var(--transition);
 }
 
 .btn:hover {
     transform: translateY(-1px);
-    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.15);
+    box-shadow: var(--shadow);
 }
 
-/* Navigation bar */
-.navbar {
-    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+.btn-primary {
+    background: var(--accent);
+    border-color: var(--accent);
 }
 
-.navbar-brand {
-    font-weight: 600;
-    font-size: 1.25rem;
+.btn-primary:hover {
+    background: #0284c7;
+    border-color: #0284c7;
 }
 
-/* Footer */
-footer {
-    margin-top: auto;
-    box-shadow: 0 -0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+.btn-outline-primary {
+    color: var(--accent);
+    border-color: var(--accent);
 }
 
-/* List group items */
-.list-group-item-action:hover {
-    background-color: rgba(0, 123, 255, 0.05);
+.btn-outline-primary:hover {
+    background: var(--accent);
+    border-color: var(--accent);
 }
 
-/* Form improvements */
+/* ─── Forms ──────────────────────────────────────── */
 .form-label {
-    font-weight: 500;
-    margin-bottom: 0.5rem;
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--gray-700);
+    margin-bottom: 0.375rem;
+}
+
+.form-control,
+.form-select {
+    border: 1px solid var(--gray-300);
+    border-radius: 0.5rem;
+    padding: 0.6rem 0.875rem;
+    transition: border-color var(--transition), box-shadow var(--transition);
 }
 
 .form-control:focus,
 .form-select:focus {
-    border-color: #0d6efd;
-    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.15);
 }
 
-/* Dashboard cards */
-.bg-primary .card-title,
-.bg-success .card-title,
-.bg-info .card-title,
-.bg-warning .card-title {
-    font-size: 0.9rem;
-    margin-bottom: 0.5rem;
+/* ─── List Groups ────────────────────────────────── */
+.list-group-item-action {
+    border: none;
+    border-bottom: 1px solid var(--gray-100);
+    padding: 0.875rem 1rem;
+    transition: background var(--transition);
 }
 
-.bg-primary .card-text,
-.bg-success .card-text,
-.bg-info .card-text,
-.bg-warning .card-text {
-    font-size: 2rem;
-    font-weight: 600;
+.list-group-item-action:last-child {
+    border-bottom: none;
 }
 
-/* Responsive table */
+.list-group-item-action:hover {
+    background-color: var(--gray-50);
+}
+
+/* ─── Alerts ─────────────────────────────────────── */
+.alert {
+    border: none;
+    border-left: 4px solid;
+    border-radius: var(--radius);
+}
+
+.alert-info {
+    background-color: #e0f2fe;
+    color: #0c4a6e;
+    border-left-color: var(--accent);
+}
+
+.alert-success {
+    background-color: #dcfce7;
+    color: #166534;
+    border-left-color: var(--success);
+}
+
+.alert-danger {
+    background-color: #fee2e2;
+    color: #991b1b;
+    border-left-color: var(--danger);
+}
+
+.alert-warning {
+    background-color: #fef3c7;
+    color: #92400e;
+    border-left-color: var(--warning);
+}
+
+/* ─── Footer ─────────────────────────────────────── */
+footer {
+    margin-top: auto;
+    background: var(--gray-900) !important;
+    color: var(--gray-300) !important;
+}
+
+footer p {
+    color: var(--gray-300) !important;
+}
+
+/* ─── Page Header ────────────────────────────────── */
+.page-header {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--gray-200);
+}
+
+.page-header h1 {
+    font-size: 1.75rem;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+}
+
+/* ─── Info section ───────────────────────────────── */
+.info-section .card-header {
+    padding: 0.875rem 1.25rem;
+}
+
+.info-section .table th {
+    width: 40%;
+    color: var(--gray-500);
+    font-size: 0.85rem;
+    font-weight: 500;
+    background: transparent;
+    text-transform: none;
+    letter-spacing: normal;
+    border-bottom: 1px solid var(--gray-100);
+}
+
+.info-section .table td {
+    border-bottom: 1px solid var(--gray-100);
+}
+
+/* ─── Modal ──────────────────────────────────────── */
+.modal-content {
+    border: none;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+}
+
+.modal-header {
+    border-top-left-radius: var(--radius);
+    border-top-right-radius: var(--radius);
+    border-bottom: 1px solid var(--gray-200);
+}
+
+/* ─── Responsive ─────────────────────────────────── */
 @media (max-width: 768px) {
     .table-responsive {
         font-size: 0.875rem;
     }
-    
+
     .btn-sm {
         padding: 0.25rem 0.5rem;
         font-size: 0.75rem;
     }
+
+    .stat-card .stat-value {
+        font-size: 1.75rem;
+    }
 }
 
-/* Alert improvements */
-.alert {
-    border-left: 4px solid;
-    border-radius: 0.375rem;
+/* ─── Utility ────────────────────────────────────── */
+.text-muted {
+    color: var(--gray-500) !important;
 }
 
-.alert-info {
-    border-left-color: #0dcaf0;
-}
-
-.alert-success {
-    border-left-color: #198754;
-}
-
-.alert-danger {
-    border-left-color: #dc3545;
-}
-
-.alert-warning {
-    border-left-color: #ffc107;
-}
-
-/* Modal improvements */
-.modal-content {
+.section-divider {
     border: none;
-    border-radius: 0.5rem;
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-}
-
-.modal-header {
-    border-top-left-radius: 0.5rem;
-    border-top-right-radius: 0.5rem;
+    border-top: 1px solid var(--gray-200);
+    margin: 1.5rem 0;
 }

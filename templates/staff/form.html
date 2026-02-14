@@ -3,180 +3,144 @@
 {% block title %}{{ 'Edit' if staff else 'New' }} Staff - Qatar Manpower{% endblock %}
 
 {% block content %}
-<div class="row mb-4">
-    <div class="col-12">
-        <h1>
-            <i class="bi bi-person"></i> 
-            {% if staff %}Edit Staff: {{ staff.full_name }}{% else %}Add New Staff Member{% endif %}
-        </h1>
-    </div>
+<div class="page-header">
+    <h1>
+        <i class="bi bi-person me-2"></i>
+        {% if staff %}Edit Staff: {{ staff.full_name }}{% else %}Add New Staff Member{% endif %}
+    </h1>
 </div>
 
 <div class="card">
-    <div class="card-body">
+    <div class="card-body p-4">
         <form method="POST">
-            <h5 class="mb-3"><i class="bi bi-person-badge"></i> Personal Information</h5>
-            <div class="row">
+            <!-- Personal Information -->
+            <h5 class="mb-3"><i class="bi bi-person-badge me-1"></i> Personal Information</h5>
+            <div class="row g-3 mb-4">
                 <div class="col-md-6">
-                    <div class="mb-3">
-                        <label for="full_name" class="form-label">Full Name <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="full_name" name="full_name" 
-                               value="{{ staff.full_name if staff else '' }}" required>
-                    </div>
+                    <label for="full_name" class="form-label">Full Name <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="full_name" name="full_name"
+                           value="{{ staff.full_name if staff else '' }}" required>
                 </div>
                 <div class="col-md-6">
-                    <div class="mb-3">
-                        <label for="passport_number" class="form-label">Passport Number <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="passport_number" name="passport_number" 
-                               value="{{ staff.passport_number if staff else '' }}" required>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="mb-3">
-                        <label for="nationality" class="form-label">Nationality</label>
-                        <input type="text" class="form-control" id="nationality" name="nationality" 
-                               value="{{ staff.nationality if staff else '' }}">
-                    </div>
+                    <label for="passport_number" class="form-label">Passport Number <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="passport_number" name="passport_number"
+                           value="{{ staff.passport_number if staff else '' }}" required>
                 </div>
                 <div class="col-md-4">
-                    <div class="mb-3">
-                        <label for="date_of_birth" class="form-label">Date of Birth</label>
-                        <input type="date" class="form-control" id="date_of_birth" name="date_of_birth" 
-                               value="{{ staff.date_of_birth.strftime('%Y-%m-%d') if staff and staff.date_of_birth else '' }}">
-                    </div>
+                    <label for="nationality" class="form-label">Nationality</label>
+                    <input type="text" class="form-control" id="nationality" name="nationality"
+                           value="{{ staff.nationality if staff else '' }}">
                 </div>
                 <div class="col-md-4">
-                    <div class="mb-3">
-                        <label for="gender" class="form-label">Gender</label>
-                        <select class="form-select" id="gender" name="gender">
-                            <option value="">Select Gender</option>
-                            <option value="Male" {% if staff and staff.gender == 'Male' %}selected{% endif %}>Male</option>
-                            <option value="Female" {% if staff and staff.gender == 'Female' %}selected{% endif %}>Female</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="mb-3">
-                        <label for="phone" class="form-label">Phone</label>
-                        <input type="tel" class="form-control" id="phone" name="phone" 
-                               value="{{ staff.phone if staff else '' }}"
-                               placeholder="+974 XXXX XXXX">
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" name="email" 
-                               value="{{ staff.email if staff else '' }}">
-                    </div>
-                </div>
-            </div>
-            
-            <hr class="my-4">
-            <h5 class="mb-3"><i class="bi bi-building"></i> Employment Information</h5>
-            
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="mb-3">
-                        <label for="office_id" class="form-label">Office <span class="text-danger">*</span></label>
-                        <select class="form-select" id="office_id" name="office_id" required>
-                            <option value="">Select Office</option>
-                            {% for office in offices %}
-                            <option value="{{ office.id }}" {% if staff and staff.office_id == office.id %}selected{% endif %}>
-                                {{ office.name }}
-                            </option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="mb-3">
-                        <label for="position" class="form-label">Position</label>
-                        <input type="text" class="form-control" id="position" name="position" 
-                               value="{{ staff.position if staff else '' }}"
-                               placeholder="e.g., Driver, Helper, Supervisor">
-                    </div>
-                </div>
-            </div>
-            
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="mb-3">
-                        <label for="salary" class="form-label">Salary (QAR)</label>
-                        <input type="number" step="0.01" class="form-control" id="salary" name="salary" 
-                               value="{{ staff.salary if staff else '' }}">
-                    </div>
+                    <label for="date_of_birth" class="form-label">Date of Birth</label>
+                    <input type="date" class="form-control" id="date_of_birth" name="date_of_birth"
+                           value="{{ staff.date_of_birth.strftime('%Y-%m-%d') if staff and staff.date_of_birth else '' }}">
                 </div>
                 <div class="col-md-4">
-                    <div class="mb-3">
-                        <label for="contract_start" class="form-label">Contract Start</label>
-                        <input type="date" class="form-control" id="contract_start" name="contract_start" 
-                               value="{{ staff.contract_start.strftime('%Y-%m-%d') if staff and staff.contract_start else '' }}">
-                    </div>
+                    <label for="gender" class="form-label">Gender</label>
+                    <select class="form-select" id="gender" name="gender">
+                        <option value="">Select Gender</option>
+                        <option value="Male" {% if staff and staff.gender == 'Male' %}selected{% endif %}>Male</option>
+                        <option value="Female" {% if staff and staff.gender == 'Female' %}selected{% endif %}>Female</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label for="phone" class="form-label">Phone</label>
+                    <input type="tel" class="form-control" id="phone" name="phone"
+                           value="{{ staff.phone if staff else '' }}"
+                           placeholder="+974 XXXX XXXX">
+                </div>
+                <div class="col-md-6">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" name="email"
+                           value="{{ staff.email if staff else '' }}">
+                </div>
+            </div>
+
+            <hr class="section-divider">
+
+            <!-- Employment Information -->
+            <h5 class="mb-3"><i class="bi bi-building me-1"></i> Employment Information</h5>
+            <div class="row g-3 mb-4">
+                <div class="col-md-6">
+                    <label for="office_id" class="form-label">Office <span class="text-danger">*</span></label>
+                    <select class="form-select" id="office_id" name="office_id" required>
+                        <option value="">Select Office</option>
+                        {% for office in offices %}
+                        <option value="{{ office.id }}" {% if staff and staff.office_id == office.id %}selected{% endif %}>
+                            {{ office.name }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label for="position" class="form-label">Position</label>
+                    <input type="text" class="form-control" id="position" name="position"
+                           value="{{ staff.position if staff else '' }}"
+                           placeholder="e.g., Driver, Helper, Supervisor">
                 </div>
                 <div class="col-md-4">
-                    <div class="mb-3">
-                        <label for="contract_end" class="form-label">Contract End</label>
-                        <input type="date" class="form-control" id="contract_end" name="contract_end" 
-                               value="{{ staff.contract_end.strftime('%Y-%m-%d') if staff and staff.contract_end else '' }}">
-                    </div>
+                    <label for="salary" class="form-label">Salary (QAR)</label>
+                    <input type="number" step="0.01" class="form-control" id="salary" name="salary"
+                           value="{{ staff.salary if staff else '' }}">
+                </div>
+                <div class="col-md-4">
+                    <label for="contract_start" class="form-label">Contract Start</label>
+                    <input type="date" class="form-control" id="contract_start" name="contract_start"
+                           value="{{ staff.contract_start.strftime('%Y-%m-%d') if staff and staff.contract_start else '' }}">
+                </div>
+                <div class="col-md-4">
+                    <label for="contract_end" class="form-label">Contract End</label>
+                    <input type="date" class="form-control" id="contract_end" name="contract_end"
+                           value="{{ staff.contract_end.strftime('%Y-%m-%d') if staff and staff.contract_end else '' }}">
                 </div>
             </div>
-            
-            <hr class="my-4">
-            <h5 class="mb-3"><i class="bi bi-credit-card"></i> Visa Information</h5>
-            
-            <div class="row">
+
+            <hr class="section-divider">
+
+            <!-- Visa Information -->
+            <h5 class="mb-3"><i class="bi bi-credit-card me-1"></i> Visa Information</h5>
+            <div class="row g-3 mb-4">
                 <div class="col-md-6">
-                    <div class="mb-3">
-                        <label for="visa_number" class="form-label">Visa Number</label>
-                        <input type="text" class="form-control" id="visa_number" name="visa_number" 
-                               value="{{ staff.visa_number if staff else '' }}">
-                    </div>
+                    <label for="visa_number" class="form-label">Visa Number</label>
+                    <input type="text" class="form-control" id="visa_number" name="visa_number"
+                           value="{{ staff.visa_number if staff else '' }}">
                 </div>
                 <div class="col-md-6">
-                    <div class="mb-3">
-                        <label for="visa_expiry" class="form-label">Visa Expiry Date</label>
-                        <input type="date" class="form-control" id="visa_expiry" name="visa_expiry" 
-                               value="{{ staff.visa_expiry.strftime('%Y-%m-%d') if staff and staff.visa_expiry else '' }}">
-                    </div>
+                    <label for="visa_expiry" class="form-label">Visa Expiry Date</label>
+                    <input type="date" class="form-control" id="visa_expiry" name="visa_expiry"
+                           value="{{ staff.visa_expiry.strftime('%Y-%m-%d') if staff and staff.visa_expiry else '' }}">
                 </div>
             </div>
-            
-            <hr class="my-4">
-            <h5 class="mb-3"><i class="bi bi-card-text"></i> Additional Information</h5>
-            
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="mb-3">
-                        <label for="status" class="form-label">Status</label>
-                        <select class="form-select" id="status" name="status">
-                            <option value="Active" {% if staff and staff.status == 'Active' %}selected{% endif %}>Active</option>
-                            <option value="On Leave" {% if staff and staff.status == 'On Leave' %}selected{% endif %}>On Leave</option>
-                            <option value="Terminated" {% if staff and staff.status == 'Terminated' %}selected{% endif %}>Terminated</option>
-                            <option value="Resigned" {% if staff and staff.status == 'Resigned' %}selected{% endif %}>Resigned</option>
-                        </select>
-                    </div>
+
+            <hr class="section-divider">
+
+            <!-- Additional Information -->
+            <h5 class="mb-3"><i class="bi bi-card-text me-1"></i> Additional Information</h5>
+            <div class="row g-3 mb-4">
+                <div class="col-12">
+                    <label for="status" class="form-label">Status</label>
+                    <select class="form-select" id="status" name="status">
+                        <option value="Active" {% if staff and staff.status == 'Active' %}selected{% endif %}>Active</option>
+                        <option value="On Leave" {% if staff and staff.status == 'On Leave' %}selected{% endif %}>On Leave</option>
+                        <option value="Terminated" {% if staff and staff.status == 'Terminated' %}selected{% endif %}>Terminated</option>
+                        <option value="Resigned" {% if staff and staff.status == 'Resigned' %}selected{% endif %}>Resigned</option>
+                    </select>
+                </div>
+                <div class="col-12">
+                    <label for="notes" class="form-label">Notes</label>
+                    <textarea class="form-control" id="notes" name="notes" rows="4">{{ staff.notes if staff else '' }}</textarea>
                 </div>
             </div>
-            
-            <div class="mb-3">
-                <label for="notes" class="form-label">Notes</label>
-                <textarea class="form-control" id="notes" name="notes" rows="4">{{ staff.notes if staff else '' }}</textarea>
-            </div>
-            
+
+            <hr class="section-divider">
+
             <div class="d-flex justify-content-between">
-                <a href="{{ url_for('staff_detail', id=staff.id) if staff else url_for('staff_list') }}" class="btn btn-secondary">
-                    <i class="bi bi-x-circle"></i> Cancel
+                <a href="{{ url_for('staff_detail', id=staff.id) if staff else url_for('staff_list') }}" class="btn btn-outline-secondary">
+                    <i class="bi bi-x-circle me-1"></i> Cancel
                 </a>
                 <button type="submit" class="btn btn-primary">
-                    <i class="bi bi-check-circle"></i> {% if staff %}Update{% else %}Create{% endif %} Staff Member
+                    <i class="bi bi-check-circle me-1"></i> {% if staff %}Update{% else %}Create{% endif %} Staff Member
                 </button>
             </div>
         </form>

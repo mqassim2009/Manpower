@@ -3,22 +3,18 @@
 {% block title %}Offices - Qatar Manpower{% endblock %}
 
 {% block content %}
-<div class="row mb-4">
-    <div class="col-md-6">
-        <h1><i class="bi bi-building"></i> Offices</h1>
-    </div>
-    <div class="col-md-6 text-end">
-        <a href="{{ url_for('office_new') }}" class="btn btn-primary">
-            <i class="bi bi-plus-circle"></i> Add New Office
-        </a>
-    </div>
+<div class="page-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+    <h1><i class="bi bi-building me-2"></i>Offices</h1>
+    <a href="{{ url_for('office_new') }}" class="btn btn-primary">
+        <i class="bi bi-plus-circle me-1"></i> Add New Office
+    </a>
 </div>
 
 {% if offices %}
 <div class="card">
-    <div class="card-body">
+    <div class="card-body p-0">
         <div class="table-responsive">
-            <table class="table table-striped table-hover">
+            <table class="table table-hover mb-0">
                 <thead>
                     <tr>
                         <th>Name</th>
@@ -27,7 +23,7 @@
                         <th>Contact Person</th>
                         <th>Phone</th>
                         <th>Status</th>
-                        <th>Staff Count</th>
+                        <th>Staff</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -36,9 +32,9 @@
                     <tr>
                         <td><strong>{{ office.name }}</strong></td>
                         <td>{{ office.license_number }}</td>
-                        <td>{{ office.location or '-' }}</td>
-                        <td>{{ office.contact_person or '-' }}</td>
-                        <td>{{ office.phone or '-' }}</td>
+                        <td>{{ office.location or '—' }}</td>
+                        <td>{{ office.contact_person or '—' }}</td>
+                        <td>{{ office.phone or '—' }}</td>
                         <td>
                             <span class="badge bg-{{ 'success' if office.status == 'Active' else 'secondary' }}">
                                 {{ office.status }}
@@ -46,12 +42,14 @@
                         </td>
                         <td>{{ office.staff|length }}</td>
                         <td>
-                            <a href="{{ url_for('office_detail', id=office.id) }}" class="btn btn-sm btn-info" title="View">
-                                <i class="bi bi-eye"></i>
-                            </a>
-                            <a href="{{ url_for('office_edit', id=office.id) }}" class="btn btn-sm btn-warning" title="Edit">
-                                <i class="bi bi-pencil"></i>
-                            </a>
+                            <div class="btn-group btn-group-sm" role="group">
+                                <a href="{{ url_for('office_detail', id=office.id) }}" class="btn btn-outline-primary" title="View">
+                                    <i class="bi bi-eye"></i>
+                                </a>
+                                <a href="{{ url_for('office_edit', id=office.id) }}" class="btn btn-outline-secondary" title="Edit">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+                            </div>
                         </td>
                     </tr>
                     {% endfor %}
@@ -61,9 +59,12 @@
     </div>
 </div>
 {% else %}
-<div class="alert alert-info">
-    <i class="bi bi-info-circle"></i> No offices registered yet. 
-    <a href="{{ url_for('office_new') }}" class="alert-link">Add the first office</a>.
+<div class="text-center py-5">
+    <i class="bi bi-building text-muted" style="font-size: 3rem;"></i>
+    <p class="text-muted mt-3">No offices registered yet.</p>
+    <a href="{{ url_for('office_new') }}" class="btn btn-primary">
+        <i class="bi bi-plus-circle me-1"></i> Add the first office
+    </a>
 </div>
 {% endif %}
 {% endblock %}
